@@ -109,7 +109,8 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
             if (
               event.target.matches(
                 ".entryfield, .entryselect, .entrytrueonly, .entryfileresource, .entryfield-radio"
-              )
+              ) ||
+              event.target.id.length > 10
             ) {
               const onChangeObject = onDataValueChange(
                 event.target,

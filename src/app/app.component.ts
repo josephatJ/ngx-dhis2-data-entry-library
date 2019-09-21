@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { OrgUnitFilterConfig } from "@iapps/ngx-dhis2-org-unit-filter";
+import { NgxDhis2HttpClientService } from "@iapps/ngx-dhis2-http-client";
 
 @Component({
   selector: "app-root",
@@ -7,6 +9,17 @@ import { Component } from "@angular/core";
 })
 export class AppComponent {
   title = "data-entry";
+  selectedFormReady: boolean = false;
+  orgUnitObject: any;
+  action: string;
+  orgUnitFilterConfig: OrgUnitFilterConfig = {
+    singleSelection: true,
+    showUserOrgUnitSection: false,
+    showOrgUnitLevelGroupSection: false,
+    showOrgUnitGroupSection: false,
+    showOrgUnitLevelSection: false
+  };
+  selectedOrgUnitItems: any[] = [{ id: "O6uvpzGd5pu", name: "Bo", level: 2 }];
   dataElements = [
     { id: "wty765Tyr5A", name: "testing data element", code: "code" }
   ];
@@ -42,4 +55,20 @@ export class AppComponent {
       // this.statusUpdateOnDomElement.status = this.entryFormStatusColors.ACTIVE;
     }, 3000);
   }
+
+  onOrgUnitUpdate(e, action) {
+    console.log(action, e);
+    this.httpClient
+      .get(
+        "organisationUnits/" +
+          e.items[0].id +
+          ".json?fields=id,name,dataSets[id,name,dataSetElements[dataElement[id,name,valueType,optionSetValue]],dataEntryForm[id,name,htmlCode]],programs[id,name,programStages[dataEntryForm[*]]]"
+      )
+      .subscribe(forms => {
+        console.log(forms);
+        this.htmlCustomForm = forms["dataSets"][0].dataEntryForm.htmlCode;
+        this.selectedFormReady = true;
+      });
+  }
+  constructor(private httpClient: NgxDhis2HttpClientService) {}
 }

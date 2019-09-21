@@ -20,6 +20,7 @@ export class AppComponent {
     ACTIVE: "#488aff",
     NORMAL: "#ccc"
   };
+  statusArr = [];
   statusUpdateOnDomElement = {
     domElementId: "",
     id: "",
@@ -27,8 +28,17 @@ export class AppComponent {
   };
   detailsOfTheChangedValue(e) {
     console.log("on your app", e);
+    const domElementId = e.domElementId;
     this.statusUpdateOnDomElement.domElementId = e.domElementId;
     this.statusUpdateOnDomElement.id = e.id;
-    this.statusUpdateOnDomElement.status = this.entryFormStatusColors.ACTIVE;
+    this.statusUpdateOnDomElement.status = "OK";
+    const newObject = {};
+    newObject[domElementId] = this.statusUpdateOnDomElement;
+    this.statusArr.push(this.statusUpdateOnDomElement);
+    setTimeout(function() {
+      // this.statusUpdateOnDomElement.domElementId = e.domElementId;
+      // this.statusUpdateOnDomElement.id = e.id;
+      // this.statusUpdateOnDomElement.status = this.entryFormStatusColors.ACTIVE;
+    }, 3000);
   }
 }

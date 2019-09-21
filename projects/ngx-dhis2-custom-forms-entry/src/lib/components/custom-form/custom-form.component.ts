@@ -12,7 +12,8 @@ import * as _ from "lodash";
 import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
 import {
   onFormReady,
-  onDataValueChange
+  onDataValueChange,
+  updateFormFieldColor
 } from "../../helpers/custom-form.helpers";
 
 @Component({
@@ -49,6 +50,10 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
     );
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    // console.log(changes);
+  }
+
   ngOnInit() {
     try {
       this._htmlMarkup = this.sanitizer.bypassSecurityTrustHtml(
@@ -59,9 +64,20 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
+  ngDoCheck() {
+    if (
+      this.statusUpdateOnDomElement &&
+      this.statusUpdateOnDomElement.id != ""
+    ) {
+      _.each(this.statusUpdateOnDomElement, element => {
+        updateFormFieldColor(
+          element.domElementId,
+          this.entryFormStatusColors[element.status]
+        );
+      });
+    }
   }
+
   ngAfterViewInit() {
     try {
       this.setScriptsOnHtmlContent(
@@ -85,7 +101,6 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
       this.entryFormStatusColors,
       function(entryFormType, entryFormStatusColors) {
         // Listen for change event
-        let formattedObject = {};
         document.addEventListener(
           "change",
           function(event: any) {
@@ -100,12 +115,6 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
                 entryFormType,
                 entryFormStatusColors
               );
-              console.log(
-                "onDataValueChange",
-                onChangeObject,
-                event.target.value
-              );
-              formattedObject = onChangeObject;
             }
             event.preventDefault();
           },

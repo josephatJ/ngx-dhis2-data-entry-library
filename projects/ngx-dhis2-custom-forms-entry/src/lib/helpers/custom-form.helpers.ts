@@ -121,6 +121,7 @@ function getRadioInputs(id, savedValue) {
 export function updateFormFieldColor(elementId, statusColor) {
   const element = document.getElementById(elementId);
   if (element) {
+    element.style.border = "solid 2px";
     element.style.borderColor = statusColor;
   }
 }

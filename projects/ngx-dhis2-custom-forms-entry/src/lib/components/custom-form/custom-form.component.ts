@@ -4,7 +4,9 @@ import {
   Input,
   AfterViewInit,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  Output,
+  EventEmitter
 } from "@angular/core";
 import * as _ from "lodash";
 import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
@@ -20,6 +22,9 @@ import {
 })
 export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() customFormDesign: any;
+  @Input() dataElements: any;
+  @Output()
+  onCustomFormInputChange = new EventEmitter();
   _htmlMarkup: SafeHtml;
   entryFormStatusColors: any = {};
   constructor(private sanitizer: DomSanitizer) {
@@ -35,7 +40,7 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
       (e: CustomEvent) => {
         e.stopPropagation();
         const dataValueObject = e.detail;
-        console.log(e);
+        console.log(dataValueObject);
       },
       false
     );
@@ -65,16 +70,13 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   setScriptsOnHtmlContent(scripts) {
-    const dataElements = [
-      { id: "wty765Tyr5A", name: "testing data element", code: "code" }
-    ];
     const dataValues = [
       { id: "wty765Tyr5A", value: "6666" },
       { id: "zwkm4wGMlrr", value: "" },
       { id: "jTLT0cmQQ6z", value: "test" }
     ];
     onFormReady(
-      dataElements,
+      this.dataElements,
       "event",
       dataValues,
       this.entryFormStatusColors,

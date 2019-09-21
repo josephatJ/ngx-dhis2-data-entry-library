@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class NgxDhis2CustomFormsEntryComponent implements OnInit {
   @Input() htmlCustomForm: any;
+  @Input() dataElements: any;
   constructor() {}
 
   ngOnInit() {}

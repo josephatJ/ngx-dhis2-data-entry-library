@@ -1,19 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
-  selector: 'ngx-ngx-dhis2-custom-forms-entry',
-  template: `
-    <p>
-      ngx-dhis2-custom-forms-entry works!
-    </p>
-  `,
+  selector: "ngx-dhis2-custom-forms-entry",
+  templateUrl: "./ngx-dhis2-custom-forms-entry.component.html",
   styles: []
 })
 export class NgxDhis2CustomFormsEntryComponent implements OnInit {
+  @Input() htmlCustomForm: any;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

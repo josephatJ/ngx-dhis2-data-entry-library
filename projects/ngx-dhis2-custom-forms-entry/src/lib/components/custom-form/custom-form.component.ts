@@ -27,6 +27,7 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
   @Output()
   onCustomFormInputChange = new EventEmitter();
   @Input() statusUpdateOnDomElement: any;
+  @Input() formType: string;
   _htmlMarkup: SafeHtml;
   entryFormStatusColors: any = {};
   constructor(private sanitizer: DomSanitizer) {
@@ -96,7 +97,7 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
     ];
     onFormReady(
       this.dataElements,
-      "event",
+      this.formType,
       dataValues,
       this.entryFormStatusColors,
       function(entryFormType, entryFormStatusColors) {

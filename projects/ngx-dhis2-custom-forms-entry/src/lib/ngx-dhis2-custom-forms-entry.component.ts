@@ -8,12 +8,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 export class NgxDhis2CustomFormsEntryComponent implements OnInit {
   @Input() htmlCustomForm: any;
   @Input() dataElements: any;
-  // @Output() onCustomFormInputChange = new EventEmitter();
+  @Output() onCustomFormInputChange = new EventEmitter();
+  @Input() statusUpdateOnDomElement: any;
   constructor() {}
 
   ngOnInit() {}
 
-  onCustomFormInputChange(e) {
-    console.log("changed", e);
+  customFormInputChange(e) {
+    this.onCustomFormInputChange.emit(e);
   }
 }

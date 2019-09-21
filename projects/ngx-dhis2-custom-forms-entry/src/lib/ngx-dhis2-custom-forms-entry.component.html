@@ -2,6 +2,7 @@
   <ngx-custom-form
     [customFormDesign]="htmlCustomForm"
     [dataElements]="dataElements"
-    (onCustomFormInputChange)="onCustomFormInputChange(event$)"
+    (onCustomFormInputChange)="customFormInputChange($event)"
+    [statusUpdateOnDomElement]="statusUpdateOnDomElement"
   ></ngx-custom-form>
 </div>

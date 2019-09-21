@@ -6,5 +6,7 @@
   <ngx-dhis2-custom-forms-entry
     [htmlCustomForm]="htmlCustomForm"
     [dataElements]="dataElements"
+    (onCustomFormInputChange)="detailsOfTheChangedValue($event)"
+    [statusUpdateOnDomElement]="statusUpdateOnDomElement"
   ></ngx-dhis2-custom-forms-entry>
 </div>

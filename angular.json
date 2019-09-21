@@ -133,6 +133,41 @@
           }
         }
       }
+    },
+    "ngx-dhis2-custom-forms-entry": {
+      "root": "projects/ngx-dhis2-custom-forms-entry",
+      "sourceRoot": "projects/ngx-dhis2-custom-forms-entry/src",
+      "projectType": "library",
+      "prefix": "ngx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-dhis2-custom-forms-entry/tsconfig.lib.json",
+            "project": "projects/ngx-dhis2-custom-forms-entry/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-dhis2-custom-forms-entry/src/test.ts",
+            "tsConfig": "projects/ngx-dhis2-custom-forms-entry/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-dhis2-custom-forms-entry/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-dhis2-custom-forms-entry/tsconfig.lib.json",
+              "projects/ngx-dhis2-custom-forms-entry/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "data-entry"

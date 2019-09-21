@@ -41,6 +41,9 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
         e.stopPropagation();
         const dataValueObject = e.detail;
         console.log(dataValueObject);
+        if (dataValueObject) {
+          this.onCustomFormInputChange.emit(dataValueObject);
+        }
       },
       false
     );

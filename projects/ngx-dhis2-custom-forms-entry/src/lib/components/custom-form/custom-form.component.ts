@@ -19,7 +19,7 @@ import {
 @Component({
   selector: "ngx-custom-form",
   templateUrl: "./custom-form.component.html",
-  styleUrls: ["./custom-form.component.css"]
+  styleUrls: ["./custom-form.component.scss"]
 })
 export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() customFormDesign: any;
@@ -112,7 +112,7 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
               ) ||
               event.target.id.length > 10
             ) {
-              const onChangeObject = onDataValueChange(
+              onDataValueChange(
                 event.target,
                 entryFormType,
                 entryFormStatusColors

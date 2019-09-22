@@ -16,7 +16,7 @@ function convertToBoolean(stringValue) {
 function getSelectInput(id, value, options) {
   const selectElement = document.createElement("select");
   selectElement.setAttribute("id", id);
-  selectElement.setAttribute("class", "entryselect");
+  selectElement.setAttribute("class", "entryselect; form-control");
 
   const defaultOption = document.createElement("option");
   defaultOption.disabled = true;
@@ -43,7 +43,7 @@ function getTextArea(id, value) {
   const textarea = document.createElement("textarea");
   textarea.setAttribute("id", id);
   textarea.setAttribute("name", "entryform");
-  textarea.setAttribute("class", "entryfield");
+  textarea.setAttribute("class", "entryfield; form-control");
   textarea.value = value;
   return textarea;
 }
@@ -140,6 +140,7 @@ export function onFormReady(
 ) {
   // Find input items and set required properties to them
   const dataElementObjects = _.keyBy(dataElements, "id");
+  console.log(dataElementObjects);
   const inputElements: any = document.getElementsByTagName("INPUT");
   const elementsWithOptionSet = {};
   const elementsWithTextArea = {};

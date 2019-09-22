@@ -14,9 +14,13 @@
       </ngx-dhis2-org-unit-filter>
     </div>
     <div class="col-md-9">
-      <div *ngIf="orgUnitFormsInfo$ | async">
-        {{ selectedForm }}
+      <div
+        *ngIf="
+          (orgUnitFormsInfo$ | async) && (orgUnitFormsInfo$ | async)['programs']
+        "
+      >
         <select
+          class="form-control"
           (change)="getSelectedForm($event.target.value)"
           *ngIf="(orgUnitFormsInfo$ | async)['programs']"
           [(ngModel)]="selectedForm"

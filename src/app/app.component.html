@@ -13,15 +13,31 @@
       >
       </ngx-dhis2-org-unit-filter>
     </div>
-  </div>
-  <div *ngIf="selectedFormReady">
-    <ngx-dhis2-custom-forms-entry
-      [htmlCustomForm]="htmlCustomForm"
-      [dataElements]="dataElements"
-      [formType]="formType"
-      (onCustomFormInputChange)="detailsOfTheChangedValue($event)"
-      [statusUpdateOnDomElement]="statusArr"
-    >
-    </ngx-dhis2-custom-forms-entry>
+    <div class="col-md-9">
+      <div *ngIf="orgUnitFormsInfo$ | async">
+        {{ selectedForm }}
+        <select
+          (change)="getSelectedForm($event.target.value)"
+          *ngIf="(orgUnitFormsInfo$ | async)['programs']"
+          [(ngModel)]="selectedForm"
+        >
+          <option
+            [value]="form.id"
+            *ngFor="let form of (orgUnitFormsInfo$ | async)['programs']"
+            >{{ form.name }}</option
+          >
+        </select>
+      </div>
+      <div *ngIf="selectedFormReady">
+        <ngx-dhis2-custom-forms-entry
+          [htmlCustomForm]="htmlCustomForm"
+          [dataElements]="dataElements"
+          [formType]="formType"
+          (onCustomFormInputChange)="detailsOfTheChangedValue($event)"
+          [statusUpdateOnDomElement]="statusArr"
+        >
+        </ngx-dhis2-custom-forms-entry>
+      </div>
+    </div>
   </div>
 </div>

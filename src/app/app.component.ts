@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { OrgUnitFilterConfig } from "@iapps/ngx-dhis2-org-unit-filter";
 import { NgxDhis2HttpClientService } from "@iapps/ngx-dhis2-http-client";
+import { Observable } from "rxjs";
+import * as _ from "lodash";
 
 @Component({
   selector: "app-root",
@@ -10,6 +12,8 @@ import { NgxDhis2HttpClientService } from "@iapps/ngx-dhis2-http-client";
 export class AppComponent {
   title = "data-entry";
   selectedFormReady: boolean = false;
+  orgUnitFormsInfo$: Observable<any>;
+  selectedForm: any;
   orgUnitObject: any;
   action: string;
   orgUnitFilterConfig: OrgUnitFilterConfig = {
@@ -58,17 +62,35 @@ export class AppComponent {
 
   onOrgUnitUpdate(e, action) {
     console.log(action, e);
-    this.httpClient
-      .get(
-        "organisationUnits/" +
-          e.items[0].id +
-          ".json?fields=id,name,dataSets[id,name,dataSetElements[dataElement[id,name,valueType,optionSetValue]],dataEntryForm[id,name,htmlCode]],programs[id,name,programStages[dataEntryForm[*]]]"
-      )
-      .subscribe(forms => {
-        console.log(forms);
-        this.htmlCustomForm = forms["dataSets"][0].dataEntryForm.htmlCode;
-        this.selectedFormReady = true;
+    this.orgUnitFormsInfo$ = this.httpClient.get(
+      "organisationUnits/" +
+        e.items[0].id +
+        ".json?fields=id,name,dataSets[id,name,dataSetElements[dataElement[id,name,valueType,optionSetValue]],dataEntryForm[id,name,htmlCode]],programs[id,name,programStages[dataEntryForm[*]]]"
+    );
+  }
+
+  getSelectedForm(selectedFormId) {
+    this.orgUnitFormsInfo$.subscribe(info => {
+      _.map(info.programs, program => {
+        if (program.id == selectedFormId) {
+          console.log(program);
+          this.htmlCustomForm =
+            program["programStages"][0].dataEntryForm.htmlCode;
+          this.dataElements = this.getDataElements(
+            program["programStages"][0]["programStageDataElements"]
+          );
+          this.selectedFormReady = true;
+        }
       });
+    });
+  }
+
+  getDataElements(programStageDataElements) {
+    let formattedDataElements = [];
+    _.map(programStageDataElements, PStageDataElement => {
+      formattedDataElements.push(PStageDataElement.dataElement);
+    });
+    return formattedDataElements;
   }
   constructor(private httpClient: NgxDhis2HttpClientService) {}
 }

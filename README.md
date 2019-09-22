@@ -1,6 +1,14 @@
-# DataEntry
+# DHIS2 Form Rendering Library
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
+
+## Installing the library
+
+To be published soon
+
+## Importing the library
+
+`<ngx-dhis2-custom-forms-entry [htmlCustomForm]="htmlCustomForm" [dataElements]="dataElements" [formType]="formType" (onCustomFormInputChange)="detailsOfTheChangedValue($event)" [statusUpdateOnDomElement]="statusesArr" > </ngx-dhis2-custom-forms-entry>`
 
 ## Development server
 

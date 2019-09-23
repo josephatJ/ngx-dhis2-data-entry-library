@@ -145,6 +145,7 @@ export function onFormReady(
   const elementsWithOptionSet = {};
   const elementsWithTextArea = {};
   const elementsWithRadioInput = {};
+  let dataType = "";
   _.each(inputElements, (inputElement: any) => {
     if (inputElement) {
       //empty value set on design inputs
@@ -185,6 +186,8 @@ export function onFormReady(
         : null;
 
       // // Get element value
+      console.log("dataElementId", dataElementId);
+      console.log("optionComboId", optionComboId);
       const dataElementValue = getSanitizedValue(
         getDataValue(dataValues, dataElementId + "-" + optionComboId),
         dataElementType
@@ -235,6 +238,7 @@ export function onFormReady(
               inputElement.setAttribute("max", 100);
             }
             inputElement.value = dataElementValue;
+            console.log("inputElement", inputElement, dataElementValue);
           } else {
             inputElement.setAttribute("class", "entryfield");
             inputElement.value = dataElementValue;
@@ -289,7 +293,11 @@ export function onFormReady(
       console.log(JSON.stringify({ type: "Text area input", error }));
     }
   }
-  const returnedFormFuncObject = formReadyFunc(formType, entryFormStatusColors);
+  const returnedFormFuncObject = formReadyFunc(
+    formType,
+    entryFormStatusColors,
+    dataElementObjects
+  );
   // console.log("returnedFormFuncObject", returnedFormFuncObject);
   return returnedFormFuncObject;
 }
@@ -297,7 +305,8 @@ export function onFormReady(
 export function onDataValueChange(
   element: any,
   entryFormType: string,
-  entryFormColors: any
+  entryFormColors: any,
+  dataElementObjects
 ) {
   // Get attribute from the element
   const elementId = element.getAttribute("id");
@@ -313,11 +322,38 @@ export function onDataValueChange(
       ? "trackedEntityAttribute"
       : splitedId[1];
 
+  console.log("dataElementId", dataElementObjects[dataElementId]);
+
   // find element value
   const elementValue = element.value;
 
-  // Update item color
-  updateFormFieldColor(elementId, entryFormColors["WAIT"]);
+  let colorKey = "WAIT";
+  // validate input
+  if (dataElementObjects[dataElementId].valueType == "NUMBER") {
+    console.log("typeof elementValue ", typeof elementValue);
+    if (elementValue.indexOf("e") > -1) {
+      // Update item color
+      colorKey = "ERROR";
+      updateFormFieldColor(elementId, entryFormColors["ERROR"]);
+    } else {
+      // Update item color
+      colorKey = "WAIT";
+      updateFormFieldColor(elementId, entryFormColors["WAIT"]);
+    }
+  } else if (
+    dataElementObjects[dataElementId].valueType == "INTEGER_ZERO_OR_POSITIVE"
+  ) {
+    if (elementValue.indexOf(".") > -1) {
+      // Update item color
+      console.log("typeof elementValue ", elementValue.indexOf("."));
+      colorKey = "ERROR";
+      updateFormFieldColor(elementId, entryFormColors["ERROR"]);
+    } else {
+      // Update item color
+      colorKey = "WAIT";
+      updateFormFieldColor(elementId, entryFormColors["WAIT"]);
+    }
+  }
 
   // create custom event for saving data values
   const dataValueEvent = new CustomEvent("dataValueUpdate", {
@@ -325,13 +361,9 @@ export function onDataValueChange(
       id: `${dataElementId}-${optionComboId}`,
       value: elementValue,
       status: "not-synced",
-      domElementId: elementId
+      domElementId: elementId,
+      colorKey: colorKey
     }
   });
   document.body.dispatchEvent(dataValueEvent);
-  return {
-    element: { id: element.id },
-    formType: entryFormType,
-    colors: entryFormColors
-  };
 }

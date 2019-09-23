@@ -35,14 +35,16 @@ export class AppComponent {
   statusUpdateOnDomElement = {
     domElementId: "",
     id: "",
-    status: ""
+    status: "",
+    colorKey: ""
   };
   detailsOfTheChangedValue(e) {
     console.log("on your app", e);
     const domElementId = e.domElementId;
     this.statusUpdateOnDomElement.domElementId = e.domElementId;
     this.statusUpdateOnDomElement.id = e.id;
-    this.statusUpdateOnDomElement.status = "OK";
+    this.statusUpdateOnDomElement.colorKey = "OK";
+    this.statusUpdateOnDomElement.status = "synched";
     const newObject = {};
     newObject[domElementId] = this.statusUpdateOnDomElement;
     this.statusArr.push(this.statusUpdateOnDomElement);

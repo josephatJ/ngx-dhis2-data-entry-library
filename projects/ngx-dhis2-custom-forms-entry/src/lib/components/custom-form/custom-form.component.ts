@@ -43,7 +43,8 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
       (e: CustomEvent) => {
         e.stopPropagation();
         const dataValueObject = e.detail;
-        if (dataValueObject) {
+        console.log(dataValueObject);
+        if (dataValueObject && dataValueObject.colorKey !== "ERROR") {
           this.onCustomFormInputChange.emit(dataValueObject);
         }
       },
@@ -73,7 +74,7 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
       _.each(this.statusUpdateOnDomElement, element => {
         updateFormFieldColor(
           element.domElementId,
-          this.entryFormStatusColors[element.status]
+          this.entryFormStatusColors[element.colorKey]
         );
       });
     }
@@ -90,17 +91,22 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   setScriptsOnHtmlContent(scripts) {
-    const dataValues = [
-      { id: "wty765Tyr5A", value: "6666" },
-      { id: "zwkm4wGMlrr", value: "" },
-      { id: "jTLT0cmQQ6z", value: "test" }
-    ];
+    const dataValues = {
+      "B9eHqRhpnPw-dataElement": {
+        id: "Ny8qhGGKa9Z-B9eHqRhpnPw",
+        value: 3454
+      },
+      "PGfbYUFddzH-dataElement": {
+        id: "Ny8qhGGKa9Z-B9eHqRhpnPw",
+        value: "Yes"
+      }
+    };
     onFormReady(
       this.dataElements,
       this.formType,
       dataValues,
       this.entryFormStatusColors,
-      function(entryFormType, entryFormStatusColors) {
+      function(entryFormType, entryFormStatusColors, dataElementObjects) {
         // Listen for change event
         document.addEventListener(
           "change",
@@ -115,7 +121,8 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
               onDataValueChange(
                 event.target,
                 entryFormType,
-                entryFormStatusColors
+                entryFormStatusColors,
+                dataElementObjects
               );
             }
             event.preventDefault();

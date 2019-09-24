@@ -48,11 +48,6 @@ export class AppComponent {
     const newObject = {};
     newObject[domElementId] = this.statusUpdateOnDomElement;
     this.statusArr.push(this.statusUpdateOnDomElement);
-    setTimeout(function() {
-      // this.statusUpdateOnDomElement.domElementId = e.domElementId;
-      // this.statusUpdateOnDomElement.id = e.id;
-      // this.statusUpdateOnDomElement.status = this.entryFormStatusColors.ACTIVE;
-    }, 3000);
   }
 
   onOrgUnitUpdate(e, action) {
@@ -73,6 +68,8 @@ export class AppComponent {
           this.dataElements = this.getDataElements(
             program["programStages"][0]["programStageDataElements"]
           );
+          console.log(JSON.stringify(this.dataElements));
+          console.log(JSON.stringify(this.htmlCustomForm));
           this.selectedFormReady = true;
         }
       });

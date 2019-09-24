@@ -140,7 +140,6 @@ export function onFormReady(
 ) {
   // Find input items and set required properties to them
   const dataElementObjects = _.keyBy(dataElements, "id");
-  console.log(dataElementObjects);
   const inputElements: any = document.getElementsByTagName("INPUT");
   const elementsWithOptionSet = {};
   const elementsWithTextArea = {};
@@ -186,8 +185,6 @@ export function onFormReady(
         : null;
 
       // // Get element value
-      console.log("dataElementId", dataElementId);
-      console.log("optionComboId", optionComboId);
       const dataElementValue = getSanitizedValue(
         getDataValue(dataValues, dataElementId + "-" + optionComboId),
         dataElementType
@@ -238,7 +235,6 @@ export function onFormReady(
               inputElement.setAttribute("max", 100);
             }
             inputElement.value = dataElementValue;
-            console.log("inputElement", inputElement, dataElementValue);
           } else {
             inputElement.setAttribute("class", "entryfield");
             inputElement.value = dataElementValue;

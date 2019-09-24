@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-lib": "ng build --prod ngx-dhis2-custom-forms-entry",
+    "build-lib": "ng build ngx-dhis2-custom-forms-entry",
     "publish": "npm run build-lib && cd dist/ngx-dhis2-custom-forms-entry && npm publish --access public && cd ../../",
     "test": "ng test",
     "lint": "ng lint",

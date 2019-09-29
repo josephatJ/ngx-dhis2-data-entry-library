@@ -31,12 +31,24 @@
             >{{ form.name }}</option
           >
         </select>
+        <select
+          class="form-control"
+          (change)="getSelectedAggregateForm($event.target.value)"
+          *ngIf="(orgUnitFormsInfo$ | async)['dataSets']"
+        >
+          <option
+            [value]="form.id"
+            *ngFor="let form of (orgUnitFormsInfo$ | async)['dataSets']"
+            >{{ form.name }}</option
+          >
+        </select>
       </div>
       <div *ngIf="selectedFormReady">
         <ngx-dhis2-custom-forms-entry
           [htmlCustomForm]="htmlCustomForm"
           [dataElements]="dataElements"
           [formType]="formType"
+          [formId]="formId"
           (onCustomFormInputChange)="detailsOfTheChangedValue($event)"
           [statusUpdateOnDomElement]="statusArr"
         >

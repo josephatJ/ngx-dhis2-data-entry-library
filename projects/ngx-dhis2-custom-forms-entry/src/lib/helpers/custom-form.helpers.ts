@@ -56,7 +56,7 @@ function getRadioInputs(id, savedValue) {
     yesInput.setAttribute("type", "radio");
     yesInput.setAttribute("id", id);
     yesInput.setAttribute("name", id);
-    yesInput.setAttribute("class", "entryfield-radio");
+    yesInput.setAttribute("class", "entryfield-radio;form-control");
     yesInput.checked = true;
     yesInput.value = "true";
 
@@ -64,7 +64,7 @@ function getRadioInputs(id, savedValue) {
     noInput.setAttribute("type", "radio");
     noInput.setAttribute("id", id);
     noInput.setAttribute("name", id);
-    noInput.setAttribute("class", "entryfield-radio");
+    noInput.setAttribute("class", "entryfield-radio;form-control");
     noInput.value = "false";
 
     radioContainer.appendChild(yesInput);
@@ -77,14 +77,14 @@ function getRadioInputs(id, savedValue) {
     yesInput.setAttribute("type", "radio");
     yesInput.setAttribute("name", id);
     yesInput.setAttribute("id", id);
-    yesInput.setAttribute("class", "entryfield-radio");
+    yesInput.setAttribute("class", "entryfield-radio;form-control");
     yesInput.value = "true";
 
     const noInput = document.createElement("input");
     noInput.setAttribute("type", "radio");
     noInput.setAttribute("name", id);
     noInput.setAttribute("id", id);
-    noInput.setAttribute("class", "entryfield-radio");
+    noInput.setAttribute("class", "entryfield-radio;form-control");
     noInput.checked = true;
     noInput.value = "false";
 
@@ -98,14 +98,14 @@ function getRadioInputs(id, savedValue) {
     yesInput.setAttribute("type", "radio");
     yesInput.setAttribute("id", id);
     yesInput.setAttribute("name", id);
-    yesInput.setAttribute("class", "entryfield-radio");
+    yesInput.setAttribute("class", "entryfield-radio;form-control");
     yesInput.value = "true";
 
     const noInput = document.createElement("input");
     noInput.setAttribute("type", "radio");
     noInput.setAttribute("id", id);
     noInput.setAttribute("name", id);
-    noInput.setAttribute("class", "entryfield-radio");
+    noInput.setAttribute("class", "entryfield-radio;form-control");
     noInput.value = "false";
 
     radioContainer.appendChild(yesInput);
@@ -144,7 +144,6 @@ export function onFormReady(
   const elementsWithOptionSet = {};
   const elementsWithTextArea = {};
   const elementsWithRadioInput = {};
-  let dataType = "";
   _.each(inputElements, (inputElement: any) => {
     if (inputElement) {
       //empty value set on design inputs
@@ -201,7 +200,7 @@ export function onFormReady(
         } else {
           if (dataElementType === "TRUE_ONLY") {
             inputElement.setAttribute("type", "checkbox");
-            inputElement.setAttribute("class", "entrytrueonly");
+            inputElement.setAttribute("class", "entrytrueonly;form-control");
             inputElement.checked = dataElementValue;
           } else if (dataElementType === "LONG_TEXT") {
             elementsWithTextArea[elementId] = getTextArea(
@@ -210,7 +209,7 @@ export function onFormReady(
             );
           } else if (dataElementType === "DATE") {
             inputElement.setAttribute("type", "date");
-            inputElement.setAttribute("class", "entryfield");
+            inputElement.setAttribute("class", "entryfield;form-control");
             inputElement.value = dataElementValue;
           } else if (dataElementType === "BOOLEAN") {
             elementsWithRadioInput[elementId] = getRadioInputs(
@@ -223,7 +222,7 @@ export function onFormReady(
             dataElementType.indexOf("INTEGER") > -1
           ) {
             inputElement.setAttribute("type", "number");
-            inputElement.setAttribute("class", "entryfield");
+            inputElement.setAttribute("class", "entryfield;form-control");
             if (dataElementType === "INTEGER_POSITIVE") {
               inputElement.setAttribute("min", 1);
             } else if (dataElementType === "INTEGER_NEGATIVE") {
@@ -236,7 +235,7 @@ export function onFormReady(
             }
             inputElement.value = dataElementValue;
           } else {
-            inputElement.setAttribute("class", "entryfield");
+            inputElement.setAttribute("class", "entryfield;form-control");
             inputElement.value = dataElementValue;
           }
         }
@@ -248,7 +247,7 @@ export function onFormReady(
           inputElement.getAttribute("name") === "indicator"
         ) {
           inputElement.setAttribute("value", "0");
-          inputElement.setAttribute("class", "entryfield");
+          inputElement.setAttribute("class", "entryfield;form-control");
           inputElement.setAttribute("readonly", "readonly");
           inputElement.setAttribute("disabled", "disabled");
         }
@@ -324,32 +323,6 @@ export function onDataValueChange(
   const elementValue = element.value;
 
   let colorKey = "WAIT";
-  // validate input
-  if (dataElementObjects[dataElementId].valueType == "NUMBER") {
-    console.log("typeof elementValue ", typeof elementValue);
-    if (elementValue.indexOf("e") > -1) {
-      // Update item color
-      colorKey = "ERROR";
-      updateFormFieldColor(elementId, entryFormColors["ERROR"]);
-    } else {
-      // Update item color
-      colorKey = "WAIT";
-      updateFormFieldColor(elementId, entryFormColors["WAIT"]);
-    }
-  } else if (
-    dataElementObjects[dataElementId].valueType == "INTEGER_ZERO_OR_POSITIVE"
-  ) {
-    if (elementValue.indexOf(".") > -1) {
-      // Update item color
-      console.log("typeof elementValue ", elementValue.indexOf("."));
-      colorKey = "ERROR";
-      updateFormFieldColor(elementId, entryFormColors["ERROR"]);
-    } else {
-      // Update item color
-      colorKey = "WAIT";
-      updateFormFieldColor(elementId, entryFormColors["WAIT"]);
-    }
-  }
 
   // create custom event for saving data values
   const dataValueEvent = new CustomEvent("dataValueUpdate", {

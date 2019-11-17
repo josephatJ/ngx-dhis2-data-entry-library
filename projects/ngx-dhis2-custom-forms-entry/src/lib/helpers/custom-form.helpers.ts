@@ -317,8 +317,6 @@ export function onDataValueChange(
       ? "trackedEntityAttribute"
       : splitedId[1];
 
-  console.log("dataElementId", dataElementObjects[dataElementId]);
-
   // find element value
   const elementValue = element.value;
 

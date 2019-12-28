@@ -4,6 +4,7 @@
 </div>
 <div class="container">
   <div class="row">
+    {{ elementsDataValues | json }}
     <div class="col-md-3">
       <ngx-dhis2-org-unit-filter
         [orgUnitFilterConfig]="orgUnitFilterConfig"
@@ -49,6 +50,7 @@
           [dataElements]="dataElements"
           [formType]="formType"
           [formId]="formId"
+          [elementsDataValues]="elementsDataValues"
           (onCustomFormInputChange)="detailsOfTheChangedValue($event)"
           [statusUpdateOnDomElement]="statusArr"
         >

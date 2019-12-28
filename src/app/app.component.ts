@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { OrgUnitFilterConfig } from "@iapps/ngx-dhis2-org-unit-filter";
 import { NgxDhis2HttpClientService } from "@iapps/ngx-dhis2-http-client";
 import { Observable } from "rxjs";
@@ -9,7 +9,7 @@ import * as _ from "lodash";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = "data-entry";
   selectedFormReady: boolean = false;
   orgUnitFormsInfo$: Observable<any>;
@@ -34,11 +34,28 @@ export class AppComponent {
 
   statusArr = [];
   statusUpdateOnDomElement = {
-    domElementId: "",
-    id: "",
-    status: "",
-    colorKey: ""
+    colorKey: "WAIT",
+    domElementId: "VdOajI8PwGd-RXDbRXHscFp-val",
+    id: "RXDbRXHscFp-dataElement",
+    status: "not-synced",
+    value: "333"
   };
+
+  elementsDataValues: any;
+
+  ngOnInit() {
+    this.elementsDataValues = {
+      "RXDbRXHscFp-dataElement": {
+        id: "VdOajI8PwGd-RXDbRXHscFp-val",
+        value: 3454
+      },
+      "PGfbYUFddzH-dataElement": {
+        id: "Ny8qhGGKa9Z-B9eHqRhpnPw",
+        value: "Yes"
+      }
+    };
+  }
+
   detailsOfTheChangedValue(e) {
     console.log("on your app", e);
     const domElementId = e.domElementId;
@@ -46,6 +63,7 @@ export class AppComponent {
     this.statusUpdateOnDomElement.id = e.id;
     this.statusUpdateOnDomElement.colorKey = "OK";
     this.statusUpdateOnDomElement.status = "synched";
+    this.statusUpdateOnDomElement.value = e.value;
     const newObject = {};
     newObject[domElementId] = this.statusUpdateOnDomElement;
     this.statusArr.push(this.statusUpdateOnDomElement);

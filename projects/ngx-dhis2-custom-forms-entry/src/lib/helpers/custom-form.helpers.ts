@@ -126,6 +126,14 @@ export function updateFormFieldColor(elementId, statusColor) {
   }
 }
 
+export function setDataValues(elementId, value) {
+  const element = document.getElementById(elementId);
+  if (element) {
+    console.log("here inside ", elementId, value);
+    element.setAttribute("value", value);
+  }
+}
+
 function getDataValue(data, id) {
   var dataObject = data[id];
   return dataObject ? dataObject.value : "";

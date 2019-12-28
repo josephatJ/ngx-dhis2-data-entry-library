@@ -13,7 +13,8 @@ import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
 import {
   onFormReady,
   onDataValueChange,
-  updateFormFieldColor
+  updateFormFieldColor,
+  setDataValues
 } from "../../helpers/custom-form.helpers";
 
 @Component({
@@ -29,6 +30,7 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() statusUpdateOnDomElement: any;
   @Input() formType: string;
   @Input() formId: string;
+  @Input() elementsDataValues: any;
   _htmlMarkup: SafeHtml;
   entryFormStatusColors: any = {};
   constructor(private sanitizer: DomSanitizer) {
@@ -44,7 +46,6 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
       (e: CustomEvent) => {
         e.stopPropagation();
         const dataValueObject = e.detail;
-        console.log(dataValueObject);
         if (dataValueObject && dataValueObject.colorKey !== "ERROR") {
           this.onCustomFormInputChange.emit(dataValueObject);
         }
@@ -92,16 +93,7 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   setScriptsOnHtmlContent(scripts) {
-    const dataValues = {
-      "B9eHqRhpnPw-dataElement": {
-        id: "Ny8qhGGKa9Z-B9eHqRhpnPw",
-        value: 3454
-      },
-      "PGfbYUFddzH-dataElement": {
-        id: "Ny8qhGGKa9Z-B9eHqRhpnPw",
-        value: "Yes"
-      }
-    };
+    const dataValues = this.elementsDataValues;
     onFormReady(
       this.dataElements,
       this.formType,

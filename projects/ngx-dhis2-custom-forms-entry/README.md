@@ -8,6 +8,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Importing/using the library
 
-`<ngx-dhis2-custom-forms-entry [htmlCustomForm]="htmlCustomForm" [dataElements]="dataElements" [formType]="formType" (onCustomFormInputChange)="detailsOfTheChangedValue($event)" [statusUpdateOnDomElement]="statusesArr" > </ngx-dhis2-custom-forms-entry>`
+`<ngx-dhis2-custom-forms-entry [htmlCustomForm]="htmlCustomForm" [dataElements]="dataElements" [formType]="formType" [elementsDataValues]="elementsDataValues" (onCustomFormInputChange)="detailsOfTheChangedValue($event)" [statusUpdateOnDomElement]="statusesArr" > </ngx-dhis2-custom-forms-entry>`
 
 - htmlCustomForm: String of html

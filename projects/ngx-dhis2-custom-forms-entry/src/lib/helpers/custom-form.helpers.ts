@@ -129,7 +129,6 @@ export function updateFormFieldColor(elementId, statusColor) {
 export function setDataValues(elementId, value) {
   const element = document.getElementById(elementId);
   if (element) {
-    console.log("here inside ", elementId, value);
     element.setAttribute("value", value);
   }
 }
@@ -171,7 +170,11 @@ export function onFormReady(
             : []
           : [];
 
-      const dataElementId = formType === "event" ? splitedId[1] : splitedId[0];
+      let dataElementId = formType === "event" ? splitedId[1] : splitedId[0];
+      if (formType == "tracker" && !dataElementId) {
+        dataElementId = elementId;
+        inputElement.setAttribute("id", elementId + "-trackedEntityAttribute");
+      }
 
       const optionComboId =
         formType === "event"

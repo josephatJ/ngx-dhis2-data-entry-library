@@ -31,6 +31,8 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() formType: string;
   @Input() formId: string;
   @Input() elementsDataValues: any;
+  @Input() indicators: any;
+  currentDataValues = {};
   _htmlMarkup: SafeHtml;
   entryFormStatusColors: any = {};
   constructor(private sanitizer: DomSanitizer) {
@@ -99,7 +101,14 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
       this.formType,
       dataValues,
       this.entryFormStatusColors,
-      function(entryFormType, entryFormStatusColors, dataElementObjects) {
+      this.indicators,
+      function(
+        entryFormType,
+        entryFormStatusColors,
+        dataElementObjects,
+        indicators,
+        dataValues
+      ) {
         // Listen for change event
         document.addEventListener(
           "change",
@@ -115,7 +124,9 @@ export class CustomFormComponent implements OnInit, AfterViewInit, OnChanges {
                 event.target,
                 entryFormType,
                 entryFormStatusColors,
-                dataElementObjects
+                dataElementObjects,
+                indicators,
+                dataValues
               );
             }
             event.preventDefault();

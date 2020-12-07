@@ -13,6 +13,8 @@ export class NgxDhis2CustomFormsEntryComponent implements OnInit {
   @Input() formType: string;
   @Input() formId: string;
   @Input() elementsDataValues: any;
+  @Input() indicators: any;
+  @Input() lastEvent: any;
   statusInfo: any;
   constructor() {}
 

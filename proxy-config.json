@@ -6,7 +6,7 @@
     "changeOrigin": "true"
   },
   "/": {
-    "target": "http://172.17.18.47/ims",
+    "target": "http://172.17.18.47/ims/",
     "secure": "false",
     "auth": "josephatjulius:Jovan@2013",
     "changeOrigin": "true"

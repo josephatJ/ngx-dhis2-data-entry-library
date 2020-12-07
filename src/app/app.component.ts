@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     showOrgUnitGroupSection: false,
     showOrgUnitLevelSection: false
   };
-  selectedOrgUnitItems: any[] = [{ id: "O6uvpzGd5pu", name: "Bo", level: 2 }];
+  selectedOrgUnitItems: any[] = [{ id: "WoDcP1GEqm3", name: "Bo", level: 2 }];
   dataElements = [
     { id: "wty765Tyr5A", name: "testing data element", code: "code" }
   ];
@@ -57,7 +57,6 @@ export class AppComponent implements OnInit {
   }
 
   detailsOfTheChangedValue(e) {
-    console.log("on your app", e);
     const domElementId = e.domElementId;
     this.statusUpdateOnDomElement.domElementId = e.domElementId;
     this.statusUpdateOnDomElement.id = e.id;
@@ -88,8 +87,6 @@ export class AppComponent implements OnInit {
           this.dataElements = this.getDataElements(
             program["programStages"][0]["programStageDataElements"]
           );
-          console.log(JSON.stringify(this.dataElements));
-          console.log(JSON.stringify(this.htmlCustomForm));
           this.selectedFormReady = true;
         }
       });
